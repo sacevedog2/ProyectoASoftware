@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Mis tarjetas{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Tarjetas vinculadas</h2>
+    <a href="/users/tarjetas/vincular/" class="btn fw-bold mb-3" style="background-color: #f39c12; color: #fff;">Vincular nueva tarjeta</a>
+    <div class="row">
+        {% for tarjeta in tarjetas %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ tarjeta.get_tipo_display }} ****{{ tarjeta.ultimos_4 }}</h5>
+                    <p class="card-text">Vencimiento: {{ tarjeta.fecha_vencimiento }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No tienes tarjetas vinculadas.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

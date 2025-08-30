@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Administración de Inventario{% endblock %}
+{% block content %}
+<h1>Administrar Inventario</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Ubicación</th>
+    </tr>
+    {% for inventario in inventarios %}
+    <tr>
+        <td>{{ inventario.id }}</td>
+        <td>{{ inventario.producto }}</td>
+        <td>{{ inventario.cantidad }}</td>
+        <td>{{ inventario.ubicacion }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

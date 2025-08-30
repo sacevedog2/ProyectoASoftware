@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+{% if messages %}
+	<div class="container mt-3">
+		{% for message in messages %}
+			<div class="alert alert-success">{{ message }}</div>
+		{% endfor %}
+	</div>
+{% endif %}
+<!-- Barra de búsqueda y filtros arriba y en horizontal -->
+<div class="container-fluid pt-4 pb-2">
+	<div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mb-4">
+		<div class="flex-grow-1">
+			<form class="d-flex flex-row align-items-center gap-2" method="get" action="/">
+				<input class="form-control" type="search" name="q" placeholder="Buscar ropa por nombre" aria-label="Buscar" value="{{ q }}">
+				<select class="form-select" name="tipo">
+					<option value="">Tipo</option>
+					<option value="camiseta">Camiseta</option>
+					<option value="buzo">Buzo</option>
+					<option value="pantalon">Pantalón</option>
+				</select>
+				<select class="form-select" name="genero">
+					<option value="">Género</option>
+					<option value="hombre">Hombre</option>
+					<option value="mujer">Mujer</option>
+				</select>
+				   <button class="btn" type="submit" style="background-color: #111; color: #fff; border: 2px solid #f39c12;">Buscar</button>
+			</form>
+		</div>
+		<div class="text-end">
+			{% if not user.is_authenticated %}
+				<a href="/users/login/" class="btn btn-primary me-2">Iniciar sesión</a>
+				<a href="/users/register/" class="btn btn-success">Registrarse</a>
+			{% else %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="d-flex mb-4">
+		   {% if user.is_authenticated %}
+			   <a href="/catalog/nueva_publicacion/" class="btn fw-bold me-auto" style="background-color: #f39c12; color: #fff;">
+				   <i class="bi bi-plus-lg"></i> Nueva publicación
+			   </a>
+		   {% else %}
+			   <a href="/users/login/?next=/catalog/nueva_publicacion/" class="btn fw-bold me-auto" style="background-color: #f39c12; color: #fff;">
+				   <i class="bi bi-plus-lg"></i> Nueva publicación
+			   </a>
+		   {% endif %}
+	</div>
+	<!-- Ranking de productos más vendidos primero -->
+</div>
+<div class="container mt-4">
+	<h2 class="mb-4 text-center" style="color: #111;">Productos más vendidos</h2>
+	<div class="row justify-content-center">
+		{% for producto in ranking %}
+		<div class="col-md-4 mb-3">
+			<div class="card border-success shadow-sm">
+				<div class="card-body">
+					<h5 class="card-title" style="color: #111;">
+						<a href="/catalog/producto/{{ producto.id }}/" class="text-decoration-none text-dark fw-bold">{{ producto.nombre }}</a>
+					</h5>
+					<p class="card-text">{{ producto.descripcion }}</p>
+					<span class="badge bg-success">Más vendido</span>
+				</div>
+			</div>
+		</div>
+		{% empty %}
+		<div class="col-12 text-center">
+			<p>No hay ranking disponible.</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<!-- Catálogo de productos -->
+<div class="container mt-5">
+	<h2 class="mb-4 text-center" style="color: #111;">Catálogo de productos</h2>
+	<div class="row justify-content-center">
+		{% for producto in productos %}
+		<div class="col-md-4 mb-4">
+			<div class="card h-100 shadow-sm">
+				{% if producto.imagen %}
+				<img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 250px; object-fit: cover;">
+				{% else %}
+				<img src="/static/img/no-image.png" class="card-img-top" alt="Sin imagen" style="height: 250px; object-fit: cover;">
+				{% endif %}
+				<div class="card-body text-center">
+					   <h5 class="card-title" style="color: #111;">
+						   <a href="/catalog/producto/{{ producto.id }}/" class="btn w-100 fw-bold" style="background-color: #f39c12; color: #fff;">{{ producto.nombre }}</a>
+					   </h5>
+					   <p class="card-text fw-bold text-success">${{ producto.precio|floatformat:0 }} COP</p>
+				</div>
+			</div>
+		</div>
+		{% empty %}
+		<div class="col-12 text-center">
+			<p>No hay productos disponibles.</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+</div>
+{% endblock %}

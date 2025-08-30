@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Detalle del producto{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" class="img-fluid rounded" alt="{{ producto.nombre }}">
+            {% else %}
+            <img src="/static/img/no-image.png" class="img-fluid rounded" alt="Sin imagen">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3">{{ producto.nombre }}</h2>
+            <p><strong>Precio:</strong> ${{ producto.precio|floatformat:0 }} COP</p>
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            <p><strong>Tallas disponibles:</strong></p>
+            <form method="post" action="/cart/agregar/{{ producto.id }}/">
+                {% csrf_token %}
+                <div class="mb-3 d-flex flex-wrap gap-2">
+                    {% for talla in producto.tallas_list %}
+                        <input type="radio" class="btn-check" name="talla" id="talla_{{ talla }}" value="{{ talla }}" autocomplete="off" required>
+                        <label class="btn btn-outline-warning" for="talla_{{ talla }}">{{ talla }}</label>
+                    {% endfor %}
+                </div>
+                {% if user.is_authenticated %}
+                    <button type="submit" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
+                        <i class="bi bi-cart-plus"></i> Agregar al carrito
+                    </button>
+                {% else %}
+                    <a href="/users/login/?next=/catalog/producto/{{ producto.id }}/" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
+                        <i class="bi bi-cart-plus"></i> Inicia sesión para comprar
+                    </a>
+                {% endif %}
+            </form>
+            <p class="mt-3"><strong>Color:</strong> {{ producto.color }}</p>
+            <p><strong>Tipo:</strong> {{ producto.tipo }}</p>
+            <p><strong>Género:</strong> {{ producto.genero }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

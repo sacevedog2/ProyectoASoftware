@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Vincular nueva tarjeta{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Vincular nueva tarjeta</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de tarjeta</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option value="">Selecciona tipo</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">MasterCard</option>
+                <option value="amex">American Express</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="numero" class="form-label">Número de tarjeta</label>
+            <input type="text" class="form-control" id="numero" name="numero" maxlength="16" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento (MM/YY)</label>
+            <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" maxlength="5" required>
+        </div>
+    <button type="submit" class="btn fw-bold" style="background-color: #f39c12; color: #fff;">Vincular tarjeta</button>
+    </form>
+</div>
+{% endblock %}

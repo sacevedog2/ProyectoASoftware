@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Perfil de usuario{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Perfil de usuario</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>ID de usuario:</strong> {{ usuario.id }}</p>
+            <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+            <p><strong>Correo electrónico:</strong> {{ usuario.correo }}</p>
+            <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+            <p><strong>Rol administrador:</strong> {% if usuario.rol %}Sí{% else %}No{% endif %}</p>
+        </div>
+    </div>
+    <a href="/users/editar/" class="btn fw-bold" style="background-color: #f39c12; color: #fff;">Editar perfil</a>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Mi Carrito{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Mi Carrito de Compras</h2>
+  {% if items %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio unitario</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.producto.nombre }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>${{ item.producto.precio }}</td>
+          <td>${{ item.cantidad|add:0|floatformat:0 }} x ${{ item.producto.precio|floatformat:2 }} = ${{ item.cantidad|add:0|floatformat:0|add:item.producto.precio|floatformat:2 }}</td>
+          <td>
+            <form action="/cart/quitar/{{ item.producto.id }}/" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Quitar</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="text-end">
+      <h4>Total: <span class="text-success">${{ total }}</span></h4>
+    </div>
+  {% else %}
+    <div class="alert alert-info">Tu carrito está vacío.</div>
+  {% endif %}
+</div>
+{% endblock %}

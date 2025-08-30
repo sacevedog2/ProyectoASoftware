@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Nueva publicación{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-warning">Nueva publicación</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tallas disponibles</label>
+            <div class="d-flex flex-wrap gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_xs" value="XS">
+                    <label class="form-check-label" for="talla_xs">XS</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_s" value="S">
+                    <label class="form-check-label" for="talla_s">S</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_m" value="M">
+                    <label class="form-check-label" for="talla_m">M</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_l" value="L">
+                    <label class="form-check-label" for="talla_l">L</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_xl" value="XL">
+                    <label class="form-check-label" for="talla_xl">XL</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="talla" id="talla_xxl" value="XXL">
+                    <label class="form-check-label" for="talla_xxl">XXL</label>
+                </div>
+            </div>
+            <small class="form-text text-muted">Selecciona todas las tallas disponibles para este producto.</small>
+        </div>
+        <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" class="form-control" id="color" name="color">
+        </div>
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de prenda</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option value="camiseta">Camiseta</option>
+                <option value="buzo">Buzo</option>
+                <option value="pantalon">Pantalón</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="genero" class="form-label">Género</label>
+            <select class="form-select" id="genero" name="genero" required>
+                <option value="hombre">Hombre</option>
+                <option value="mujer">Mujer</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del producto</label>
+            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn fw-bold" style="background-color: #f39c12; color: #fff;">Publicar</button>
+    </form>
+</div>
+{% endblock %}
