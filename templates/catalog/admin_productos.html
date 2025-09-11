@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Administración de Productos{% endblock %}
+{% block content %}
+<h1>Administrar Productos</h1>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Talla</th>
+        <th>Color</th>
+    </tr>
+    {% for producto in productos %}
+    <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.talla }}</td>
+        <td>{{ producto.color }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

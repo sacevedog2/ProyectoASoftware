@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Administración de Pagos{% endblock %}
+{% block content %}
+<h1>Administrar Pagos</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Monto</th>
+        <th>Fecha</th>
+    </tr>
+    {% for pago in pagos %}
+    <tr>
+        <td>{{ pago.id }}</td>
+        <td>{{ pago.usuario }}</td>
+        <td>{{ pago.monto }}</td>
+        <td>{{ pago.fecha }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

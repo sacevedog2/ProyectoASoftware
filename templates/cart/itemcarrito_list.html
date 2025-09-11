@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Items del Carrito{% endblock %}
+{% block content %}
+<h1>Lista de Items del Carrito</h1>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Carrito</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.carrito }}</td>
+        <td>{{ item.producto }}</td>
+        <td>{{ item.cantidad }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
