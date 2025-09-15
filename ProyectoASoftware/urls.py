@@ -13,7 +13,6 @@ urlpatterns = [
     path("cart/", include("cart.urls")),
     path("orders/", include("orders.urls")),
     path("payments/", include("payments.urls")),
-    path("inventory/", include("inventory.urls")),
 ]
 
 # Servir archivos media en desarrollo
