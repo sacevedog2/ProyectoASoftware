@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Panel{% endblock %}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
             .navbar {
                 border-bottom: 3px solid #ffa726 !important;
@@ -26,29 +27,53 @@
                 <div class="d-flex align-items-center ms-auto gap-2">
                     <a href="/" class="btn btn-outline-light">Catálogo</a>
                     {% if user.is_authenticated %}
+                        {% if user.is_staff or user.is_superuser %}
+                        <!-- Menú para Administradores -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownAdmin" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog"></i> Panel Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAdmin">
+                                <li><h6 class="dropdown-header">Panel de Administración</h6></li>
+                                <li><a class="dropdown-item" href="/users/admin/usuarios/">👥 Usuarios</a></li>
+                                <li><a class="dropdown-item" href="/orders/admin/pedidos/">📋 Pedidos</a></li>
+                                <li><a class="dropdown-item" href="/payments/admin/pagos/">💳 Pagos</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/catalog/nueva_publicacion/">➕ Nueva Publicación</a></li>
+                                <li><a class="dropdown-item" href="/admin/">🔧 Django Admin</a></li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <!-- Menú para Usuarios Normales -->
                         <a href="/recomendaciones/" class="btn btn-outline-light">Recomendaciones</a>
                         <a href="/cart/ver/" class="btn" style="background-color: #ffa726; color: #111; border: none; font-weight: 500;">Mi carrito</a>
+                        {% endif %}
+                        
                         <div class="dropdown">
                             <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownPerfil" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ user.username }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
+                                {% if not user.is_staff and not user.is_superuser %}
                                 <li><a class="dropdown-item" href="/users/perfil/">Ver perfil</a></li>
                                 <li><a class="dropdown-item" href="/orders/historial/">Mis pedidos</a></li>
                                 <li><a class="dropdown-item" href="/users/tarjetas/">Tarjetas</a></li>
                                 <li><hr class="dropdown-divider"></li>
+                                {% endif %}
                                 <li>
                                     <form action="/users/logout/" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
                                     </form>
                                 </li>
+                                {% if not user.is_staff and not user.is_superuser %}
                                 <li>
                                     <form action="/users/eliminar/" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');">
                                         {% csrf_token %}
                                         <button type="submit" class="dropdown-item text-danger">Eliminar cuenta</button>
                                     </form>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
                     {% endif %}

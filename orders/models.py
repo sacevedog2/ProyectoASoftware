@@ -5,25 +5,56 @@ class Pedido(models.Model):
 	"""
 	Modelo para los pedidos realizados por los usuarios.
 	"""
+	
+	ESTADO_CHOICES = [
+		('pendiente', 'Pendiente'),
+		('confirmado', 'Confirmado'),
+		('en_proceso', 'En proceso de preparación'),
+		('en_camino', 'En camino'),
+		('entregado', 'Entregado'),
+		('cancelado', 'Cancelado'),
+	]
+	
 	usuario = models.ForeignKey('users.Usuario', on_delete=models.CASCADE, related_name='pedidos')
 	fecha_pedido = models.DateTimeField(auto_now_add=True)
-	estado = models.CharField(max_length=30)
+	estado = models.CharField(max_length=30, choices=ESTADO_CHOICES, default='pendiente')
 	total = models.FloatField(default=0.0)
 
 	class Meta:
 		verbose_name = 'Pedido'
 		verbose_name_plural = 'Pedidos'
+		ordering = ['-fecha_pedido']
 
 	def __str__(self):
-		return f"Pedido({self.pk}, Usuario: {self.usuario_id}, Total: {self.total})"
-
-	def generar_factura(self):
-		# Implementar lógica para generar factura
-		pass
+		return f"Pedido #{self.pk} - {self.usuario.nombre} - {self.get_estado_display()}"
 
 	def actualizar_estado(self, nuevo_estado):
 		self.estado = nuevo_estado
 		self.save()
+	
+	def get_estado_color(self):
+		"""Retorna un color para el estado del pedido"""
+		colores = {
+			'pendiente': 'warning',
+			'confirmado': 'info',
+			'en_proceso': 'primary',
+			'en_camino': 'secondary',
+			'entregado': 'success',
+			'cancelado': 'danger',
+		}
+		return colores.get(self.estado, 'secondary')
+	
+	def get_estado_icon(self):
+		"""Retorna un icono para el estado del pedido"""
+		iconos = {
+			'pendiente': 'fas fa-clock',
+			'confirmado': 'fas fa-check-circle',
+			'en_proceso': 'fas fa-cog fa-spin',
+			'en_camino': 'fas fa-truck',
+			'entregado': 'fas fa-check-double',
+			'cancelado': 'fas fa-times-circle',
+		}
+		return iconos.get(self.estado, 'fas fa-question-circle')
 
 class DetallePedido(models.Model):
 	"""

@@ -1,8 +1,5 @@
 from django.views.generic import FormView
 from django.urls import reverse_lazy
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import redirect
 
 class RegistroView(FormView):
     template_name = "users/registro.html"
@@ -23,13 +20,3 @@ class RegistroView(FormView):
             rol=False
         )
         return super().form_valid(form)
-
-class LoginView(FormView):
-    template_name = "users/login.html"
-    form_class = AuthenticationForm
-    success_url = "/"
-
-    def form_valid(self, form):
-        user = form.get_user()
-        login(self.request, user)
-        return redirect(self.get_success_url())

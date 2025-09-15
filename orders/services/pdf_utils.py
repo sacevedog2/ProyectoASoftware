@@ -16,7 +16,7 @@ def generar_factura_pdf(pedido):
     y -= 30
     p.drawString(100, y, f"Usuario: {pedido.usuario}")
     y -= 30
-    p.drawString(100, y, f"Fecha: {pedido.fechaPedido}")
+    p.drawString(100, y, f"Fecha: {pedido.fecha_pedido}")
     y -= 30
     p.drawString(100, y, f"Estado: {pedido.estado}")
     y -= 30
@@ -25,10 +25,10 @@ def generar_factura_pdf(pedido):
     p.drawString(100, y, "Detalles del pedido:")
     y -= 30
     # Si existe el modelo DetallePedido y la relación
-    detalles = getattr(pedido, 'detallepedido_set', None)
+    detalles = getattr(pedido, 'detalles', None)
     if detalles:
         for detalle in detalles.all():
-            p.drawString(120, y, f"Producto: {detalle.producto} | Cantidad: {detalle.cantidad} | Precio Unitario: ${detalle.precioUnitario} | Subtotal: ${detalle.subtotal}")
+            p.drawString(120, y, f"Producto: {detalle.producto} | Cantidad: {detalle.cantidad} | Precio Unitario: ${detalle.precio_unitario} | Subtotal: ${detalle.subtotal}")
             y -= 20
             if y < 100:
                 p.showPage()

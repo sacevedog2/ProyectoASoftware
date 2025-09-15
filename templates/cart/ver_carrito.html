@@ -3,39 +3,102 @@
 {% block content %}
 <div class="container py-4">
   <h2 class="mb-4">Mi Carrito de Compras</h2>
-  {% if items %}
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Precio unitario</th>
-          <th>Subtotal</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in items %}
-        <tr>
-          <td>{{ item.producto.nombre }}</td>
-          <td>{{ item.cantidad }}</td>
-          <td>${{ item.producto.precio }}</td>
-          <td>${{ item.cantidad|add:0|floatformat:0 }} x ${{ item.producto.precio|floatformat:2 }} = ${{ item.cantidad|add:0|floatformat:0|add:item.producto.precio|floatformat:2 }}</td>
-          <td>
-            <form action="/cart/quitar/{{ item.producto.id }}/" method="post" style="display:inline;">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger btn-sm">Quitar</button>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <div class="text-end">
-      <h4>Total: <span class="text-success">${{ total }}</span></h4>
+  {% if items_con_subtotal %}
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Subtotal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item_data in items_con_subtotal %}
+            <tr>
+              <td>
+                <strong>{{ item_data.item.producto.nombre }}</strong>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <form action="{% url 'cart:disminuir_cantidad' item_data.item.producto.id %}" method="post" style="display:inline;" class="me-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" {% if item_data.item.cantidad <= 1 %}disabled{% endif %}>
+                      -
+                    </button>
+                  </form>
+                  <span class="mx-2"><strong>{{ item_data.item.cantidad }}</strong></span>
+                  <form action="{% url 'cart:aumentar_cantidad' item_data.item.producto.id %}" method="post" style="display:inline;" class="ms-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">
+                      +
+                    </button>
+                  </form>
+                </div>
+              </td>
+              <td>${{ item_data.item.producto.precio|floatformat:2 }}</td>
+              <td>
+                <strong>${{ item_data.subtotal|floatformat:2 }}</strong>
+              </td>
+              <td>
+                <form action="/cart/quitar/{{ item_data.item.producto.id }}/" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="fas fa-trash"></i> Quitar
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <a href="{% url 'home' %}" class="btn btn-outline-primary">
+          <i class="fas fa-arrow-left"></i> Seguir Comprando
+        </a>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h5 class="card-title">Resumen del Pedido</h5>
+            <div class="d-flex justify-content-between">
+              <span>Subtotal:</span>
+              <span>${{ total|floatformat:2 }}</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Envío:</span>
+              <span class="text-muted">Calculado en checkout</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <strong>Total:</strong>
+              <strong class="text-success">${{ total|floatformat:2 }}</strong>
+            </div>
+            <div class="d-grid gap-2 mt-3">
+              <a href="{% url 'payments:checkout' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-credit-card"></i> Proceder al Checkout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   {% else %}
-    <div class="alert alert-info">Tu carrito está vacío.</div>
+    <div class="text-center py-5">
+      <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+      <h4 class="text-muted">Tu carrito está vacío</h4>
+      <p class="text-muted">Explora nuestros productos y agrega algunos al carrito.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">
+        <i class="fas fa-shopping-bag"></i> Ver Productos
+      </a>
+    </div>
   {% endif %}
 </div>
 {% endblock %}

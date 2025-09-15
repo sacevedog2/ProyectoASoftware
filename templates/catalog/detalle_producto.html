@@ -16,24 +16,44 @@
             <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
             <p><strong>Stock:</strong> {{ producto.stock }}</p>
             <p><strong>Tallas disponibles:</strong></p>
-            <form method="post" action="/cart/agregar/{{ producto.id }}/">
-                {% csrf_token %}
+            
+            {% if user.is_staff or user.is_superuser %}
+                <!-- Vista para Administradores -->
                 <div class="mb-3 d-flex flex-wrap gap-2">
                     {% for talla in producto.tallas_list %}
-                        <input type="radio" class="btn-check" name="talla" id="talla_{{ talla }}" value="{{ talla }}" autocomplete="off" required>
-                        <label class="btn btn-outline-warning" for="talla_{{ talla }}">{{ talla }}</label>
+                        <span class="badge bg-secondary fs-6 px-3 py-2">{{ talla }}</span>
                     {% endfor %}
                 </div>
-                {% if user.is_authenticated %}
-                    <button type="submit" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
-                        <i class="bi bi-cart-plus"></i> Agregar al carrito
-                    </button>
-                {% else %}
-                    <a href="/users/login/?next=/catalog/producto/{{ producto.id }}/" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
-                        <i class="bi bi-cart-plus"></i> Inicia sesión para comprar
+                <div class="d-grid gap-2">
+                    <a href="{% url 'catalog:editar_producto' producto.pk %}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-edit"></i> Editar Producto
                     </a>
-                {% endif %}
-            </form>
+                    <a href="/" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Volver al Catálogo
+                    </a>
+                </div>
+            {% else %}
+                <!-- Vista para Usuarios Normales -->
+                <form method="post" action="/cart/agregar/{{ producto.id }}/">
+                    {% csrf_token %}
+                    <div class="mb-3 d-flex flex-wrap gap-2">
+                        {% for talla in producto.tallas_list %}
+                            <input type="radio" class="btn-check" name="talla" id="talla_{{ talla }}" value="{{ talla }}" autocomplete="off" required>
+                            <label class="btn btn-outline-warning" for="talla_{{ talla }}">{{ talla }}</label>
+                        {% endfor %}
+                    </div>
+                    {% if user.is_authenticated %}
+                        <button type="submit" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
+                            <i class="bi bi-cart-plus"></i> Agregar al carrito
+                        </button>
+                    {% else %}
+                        <a href="/users/login/?next=/catalog/producto/{{ producto.id }}/" class="btn fw-bold w-100" style="background-color: #f39c12; color: #fff;">
+                            <i class="bi bi-cart-plus"></i> Inicia sesión para comprar
+                        </a>
+                    {% endif %}
+                </form>
+            {% endif %}
+            
             <p class="mt-3"><strong>Color:</strong> {{ producto.color }}</p>
             <p><strong>Tipo:</strong> {{ producto.tipo }}</p>
             <p><strong>Género:</strong> {{ producto.genero }}</p>

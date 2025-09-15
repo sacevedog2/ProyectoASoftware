@@ -37,17 +37,13 @@
 		</div>
 	</div>
 	<div class="d-flex mb-4">
-		   {% if user.is_authenticated %}
+		   {% if user.is_staff or user.is_superuser %}
 			   <a href="/catalog/nueva_publicacion/" class="btn fw-bold me-auto" style="background-color: #f39c12; color: #fff;">
-				   <i class="bi bi-plus-lg"></i> Nueva publicación
-			   </a>
-		   {% else %}
-			   <a href="/users/login/?next=/catalog/nueva_publicacion/" class="btn fw-bold me-auto" style="background-color: #f39c12; color: #fff;">
 				   <i class="bi bi-plus-lg"></i> Nueva publicación
 			   </a>
 		   {% endif %}
 	</div>
-	<!-- Ranking de productos más vendidos primero -->
+	<!-- Ranking de productos más vendidos -->
 </div>
 <div class="container mt-4">
 	<h2 class="mb-4 text-center" style="color: #111;">Productos más vendidos</h2>
@@ -85,9 +81,20 @@
 				{% endif %}
 				<div class="card-body text-center">
 					   <h5 class="card-title" style="color: #111;">
+						   {% if user.is_staff or user.is_superuser %}
+						   <!-- Botón de edición para administradores -->
+						   <a href="{% url 'catalog:editar_producto' producto.pk %}" class="btn w-100 fw-bold" style="background-color: #ffc107; color: #111;">
+							   <i class="fas fa-edit"></i> Editar: {{ producto.nombre }}
+						   </a>
+						   {% else %}
+						   <!-- Link normal para usuarios -->
 						   <a href="/catalog/producto/{{ producto.id }}/" class="btn w-100 fw-bold" style="background-color: #f39c12; color: #fff;">{{ producto.nombre }}</a>
+						   {% endif %}
 					   </h5>
 					   <p class="card-text fw-bold text-success">${{ producto.precio|floatformat:0 }} COP</p>
+					   {% if user.is_staff or user.is_superuser %}
+					   <small class="text-muted">Stock: {{ producto.stock }} | Talla: {{ producto.talla }} | Color: {{ producto.color }}</small>
+					   {% endif %}
 				</div>
 			</div>
 		</div>
