@@ -189,7 +189,7 @@ http://localhost:8000/api/
 
 ---
 
-### 📝 Códigos de estado HTTP
+### Códigos de estado HTTP
 
 - `200 OK`: Solicitud exitosa
 - `404 Not Found`: Recurso no encontrado
