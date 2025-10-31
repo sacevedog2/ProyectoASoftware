@@ -1,0 +1,297 @@
+# ENGLISH TRANSLATIONS FOR SILHOUETTE CLOTHING STORE
+# Copyright (C) 2025
+# This file is distributed under the same license as the ProyectoASoftware package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-27 00:00+0000\n"
+"PO-Revision-Date: 2025-10-27 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Base.html - Navigation
+msgid "Panel"
+msgstr "Dashboard"
+
+msgid "Seleccionar Idioma"
+msgstr "Select Language"
+
+msgid "Seleccionar Moneda"
+msgstr "Select Currency"
+
+msgid "Catálogo"
+msgstr "Catalog"
+
+msgid "Recomendaciones"
+msgstr "Recommendations"
+
+msgid "Mi carrito"
+msgstr "My Cart"
+
+msgid "Iniciar sesión"
+msgstr "Sign In"
+
+msgid "Registrarse"
+msgstr "Sign Up"
+
+msgid "Cerrar sesión"
+msgstr "Sign Out"
+
+msgid "Eliminar cuenta"
+msgstr "Delete Account"
+
+msgid "Ver perfil"
+msgstr "View Profile"
+
+msgid "Mis pedidos"
+msgstr "My Orders"
+
+msgid "Tarjetas"
+msgstr "Cards"
+
+msgid "Panel Admin"
+msgstr "Admin Panel"
+
+msgid "Nueva Publicación"
+msgstr "New Publication"
+
+# Home.html - Search and Filters
+msgid "Inicio"
+msgstr "Home"
+
+msgid "Buscar ropa por nombre"
+msgstr "Search clothes by name"
+
+msgid "Buscar"
+msgstr "Search"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Camiseta"
+msgstr "T-Shirt"
+
+msgid "Buzo"
+msgstr "Sweatshirt"
+
+msgid "Pantalón"
+msgstr "Pants"
+
+msgid "Género"
+msgstr "Gender"
+
+msgid "Hombre"
+msgstr "Men"
+
+msgid "Mujer"
+msgstr "Women"
+
+# Home.html - Products
+msgid "Productos más vendidos"
+msgstr "Best Sellers"
+
+msgid "No hay ranking disponible."
+msgstr "No ranking available."
+
+msgid "Catálogo de productos"
+msgstr "Product Catalog"
+
+msgid "No hay productos disponibles."
+msgstr "No products available."
+
+msgid "Más vendido"
+msgstr "Best Seller"
+
+# Product Details
+msgid "Precio"
+msgstr "Price"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Stock"
+msgstr "Stock"
+
+msgid "Tallas disponibles"
+msgstr "Available Sizes"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Agregar al carrito"
+msgstr "Add to Cart"
+
+msgid "Inicia sesión para comprar"
+msgstr "Sign in to purchase"
+
+msgid "Editar Producto"
+msgstr "Edit Product"
+
+msgid "Volver al Catálogo"
+msgstr "Back to Catalog"
+
+# Cart
+msgid "Mi Carrito de Compras"
+msgstr "My Shopping Cart"
+
+msgid "Producto"
+msgstr "Product"
+
+msgid "Cantidad"
+msgstr "Quantity"
+
+msgid "Precio unitario"
+msgstr "Unit Price"
+
+msgid "Subtotal"
+msgstr "Subtotal"
+
+msgid "Acciones"
+msgstr "Actions"
+
+msgid "Quitar"
+msgstr "Remove"
+
+msgid "Seguir Comprando"
+msgstr "Continue Shopping"
+
+msgid "Resumen del Pedido"
+msgstr "Order Summary"
+
+msgid "Envío"
+msgstr "Shipping"
+
+msgid "Calculado en checkout"
+msgstr "Calculated at checkout"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Proceder al Checkout"
+msgstr "Proceed to Checkout"
+
+msgid "Tu carrito está vacío"
+msgstr "Your cart is empty"
+
+msgid "Explora nuestros productos y agrega algunos al carrito."
+msgstr "Explore our products and add some to your cart."
+
+msgid "Ver Productos"
+msgstr "View Products"
+
+# Orders
+msgid "Pedidos"
+msgstr "Orders"
+
+msgid "Pedido"
+msgstr "Order"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Estado"
+msgstr "Status"
+
+msgid "Pendiente"
+msgstr "Pending"
+
+msgid "Confirmado"
+msgstr "Confirmed"
+
+msgid "En proceso de preparación"
+msgstr "In Preparation"
+
+msgid "En camino"
+msgstr "On the Way"
+
+msgid "Entregado"
+msgstr "Delivered"
+
+msgid "Cancelado"
+msgstr "Cancelled"
+
+# Payments
+msgid "Método de pago"
+msgstr "Payment Method"
+
+msgid "Pago contra entrega"
+msgstr "Cash on Delivery"
+
+msgid "Pago con tarjeta"
+msgstr "Card Payment"
+
+msgid "Dirección de entrega"
+msgstr "Delivery Address"
+
+msgid "Completado"
+msgstr "Completed"
+
+msgid "Fallido"
+msgstr "Failed"
+
+# Users
+msgid "Usuario"
+msgstr "User"
+
+msgid "Usuarios"
+msgstr "Users"
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Correo electrónico"
+msgstr "Email"
+
+msgid "Contraseña"
+msgstr "Password"
+
+msgid "Dirección"
+msgstr "Address"
+
+msgid "Teléfono"
+msgstr "Phone"
+
+msgid "Rol administrador"
+msgstr "Administrator Role"
+
+# Messages
+msgid "Producto actualizado exitosamente!"
+msgstr "Product updated successfully!"
+
+msgid "¡Publicación creada exitosamente!"
+msgstr "Publication created successfully!"
+
+msgid "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."
+msgstr "Are you sure you want to delete your account? This action cannot be undone."
+
+# Currency (for reference, already in English in the service)
+msgid "Dólar (USD)"
+msgstr "Dollar (USD)"
+
+msgid "Peso Colombiano (COP)"
+msgstr "Colombian Peso (COP)"
+
+msgid "Euro (EUR)"
+msgstr "Euro (EUR)"
+
+msgid "Libra Esterlina (GBP)"
+msgstr "Pound Sterling (GBP)"
+
+msgid "Peso Mexicano (MXN)"
+msgstr "Mexican Peso (MXN)"
+
+msgid "Peso Argentino (ARS)"
+msgstr "Argentine Peso (ARS)"
+
+msgid "Real Brasileño (BRL)"
+msgstr "Brazilian Real (BRL)"
+
+msgid "Peso Chileno (CLP)"
+msgstr "Chilean Peso (CLP)"

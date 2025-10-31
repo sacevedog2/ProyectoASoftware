@@ -2,7 +2,7 @@
 {% block title %}Nueva publicación{% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4 text-warning">Nueva publicación</h2>
+    <h2 class="mb-4 text-primary">Nueva publicación</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
@@ -74,7 +74,7 @@
             <label for="imagen" class="form-label">Imagen del producto</label>
             <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" required>
         </div>
-        <button type="submit" class="btn fw-bold" style="background-color: #f39c12; color: #fff;">Publicar</button>
+        <button type="submit" class="btn btn-primary fw-bold">Publicar</button>
     </form>
 </div>
 {% endblock %}

@@ -12,6 +12,7 @@ env/
 .vscode/
 .idea/
 .DS_Store
+*.md
 
 # Archivos temporales
 *.log
@@ -21,3 +22,5 @@ env/
 *.pyd
 *.sqlite3
 *.db
+
+

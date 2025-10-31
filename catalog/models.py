@@ -1,8 +1,6 @@
 
 """
-Autor: Juan Pablo Corena
-Fecha: 2025-08-28
-Descripción: Modelo Producto para ProyectoASoftware
+Modelo Producto para ProyectoASoftware
 """
 
 from django.db import models
