@@ -46,7 +46,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-## 🔄 Compilar Traducciones
+##  Compilar Traducciones
 
 Si modificas las traducciones en `locale/en/LC_MESSAGES/django.po`, debes recompilar:
 
@@ -62,7 +62,7 @@ API REST de solo lectura en formato JSON para consultar los productos del catál
 
 **Nota:** Esta API solo permite operaciones de lectura (GET). No se pueden crear, modificar o eliminar productos a través de esta API.
 
-### 🔗 Base URL
+###  Base URL
 ```
 http://localhost:8000/api/
 ```
@@ -71,7 +71,7 @@ http://localhost:8000/api/
 
 ---
 
-### 📋 Endpoints Disponibles
+###  Endpoints Disponibles
 
 ### 1. Listar todos los productos
 **GET** `/api/productos/`
@@ -177,11 +177,11 @@ http://localhost:8000/api/
 }
 ```
 
-## 🔐 Seguridad
+## Seguridad
 
 **Solo lectura:**
 
-### 🧪 Pruebas 
+### Pruebas 
 
 1. **GET** Lista de productos: `http://localhost:8000/api/productos/`
 2. **GET** Detalle producto: `http://localhost:8000/api/productos/1/`
