@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Finalizar Compra{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Finalizar Compra</h2>
+            
+            <form method="post" action="{% url 'payments:procesar_checkout' %}">
+                {% csrf_token %}
+                
+                <!-- Resumen del pedido -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Resumen del Pedido</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in items %}
+                        <div class="row mb-2">
+                            <div class="col-8">
+                                {{ item.producto.nombre }} x {{ item.cantidad }}
+                            </div>
+                            <div class="col-4 text-end">
+                                ${{ item.producto.precio|floatformat:2 }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        <div class="row">
+                            <div class="col-8"><strong>Total:</strong></div>
+                            <div class="col-4 text-end"><strong>${{ carrito.total|floatformat:2 }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dirección de entrega -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Dirección de Entrega</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if usuario.direccion %}
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="direccion" id="direccion_actual" value="{{ usuario.direccion }}" checked>
+                            <label class="form-check-label" for="direccion_actual">
+                                Usar dirección actual: {{ usuario.direccion }}
+                            </label>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="direccion" id="nueva_direccion_radio" value="">
+                            <label class="form-check-label" for="nueva_direccion_radio">
+                                Usar nueva dirección
+                            </label>
+                        </div>
+                        
+                        <div class="mb-3" id="nueva_direccion_container" style="display: none;">
+                            <label for="nueva_direccion" class="form-label">Nueva dirección:</label>
+                            <textarea class="form-control" id="nueva_direccion" name="nueva_direccion" rows="3" placeholder="Ingresa la dirección completa de entrega"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Método de pago -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Método de Pago</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="metodo_pago" id="contraentrega" value="contraentrega" checked>
+                            <label class="form-check-label" for="contraentrega">
+                                <i class="fas fa-truck"></i> Pago contra entrega
+                                <small class="text-muted d-block">Paga cuando recibas tu pedido</small>
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="metodo_pago" id="tarjeta" value="tarjeta">
+                            <label class="form-check-label" for="tarjeta">
+                                <i class="fas fa-credit-card"></i> Pago con tarjeta
+                                <small class="text-muted d-block">Pago inmediato con tarjeta de crédito/débito</small>
+                            </label>
+                        </div>
+                        
+                        <!-- Selección de tarjeta -->
+                        <div id="tarjeta_container" style="display: none;">
+                            {% if tarjetas %}
+                            <div class="mb-3">
+                                <label class="form-label">Seleccionar tarjeta:</label>
+                                {% for tarjeta in tarjetas %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tarjeta_id" id="tarjeta_{{ tarjeta.id }}" value="{{ tarjeta.id }}">
+                                    <label class="form-check-label" for="tarjeta_{{ tarjeta.id }}">
+                                        {{ tarjeta }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tarjeta_id" id="nueva_tarjeta" value="">
+                                    <label class="form-check-label" for="nueva_tarjeta">
+                                        Usar nueva tarjeta
+                                    </label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Formulario para nueva tarjeta -->
+                            <div id="nueva_tarjeta_form" {% if tarjetas %}style="display: none;"{% endif %}>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="numero_tarjeta" class="form-label">Número de tarjeta:</label>
+                                        <input type="text" class="form-control" id="numero_tarjeta" name="numero_tarjeta" placeholder="1234 5678 9012 3456" maxlength="16">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tipo_tarjeta" class="form-label">Tipo de tarjeta:</label>
+                                        <select class="form-control" id="tipo_tarjeta" name="tipo_tarjeta">
+                                            <option value="visa">Visa</option>
+                                            <option value="mastercard">MasterCard</option>
+                                            <option value="amex">American Express</option>
+                                            <option value="otro">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento:</label>
+                                        <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-lock"></i> Finalizar Compra
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Información de Entrega</h6>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">
+                        • Los pedidos se entregan en 2-5 días hábiles<br>
+                        • Los pagos con tarjeta son procesados inmediatamente
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Manejar selección de dirección
+    const direccionRadios = document.querySelectorAll('input[name="direccion"]');
+    const nuevaDireccionContainer = document.getElementById('nueva_direccion_container');
+    
+    direccionRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.id === 'nueva_direccion_radio') {
+                nuevaDireccionContainer.style.display = 'block';
+            } else {
+                nuevaDireccionContainer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Manejar selección de método de pago
+    const metodoRadios = document.querySelectorAll('input[name="metodo_pago"]');
+    const tarjetaContainer = document.getElementById('tarjeta_container');
+    
+    metodoRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'tarjeta') {
+                tarjetaContainer.style.display = 'block';
+            } else {
+                tarjetaContainer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Manejar selección de tarjeta
+    const tarjetaRadios = document.querySelectorAll('input[name="tarjeta_id"]');
+    const nuevaTarjetaForm = document.getElementById('nueva_tarjeta_form');
+    
+    tarjetaRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.id === 'nueva_tarjeta' || this.value === '') {
+                nuevaTarjetaForm.style.display = 'block';
+            } else {
+                nuevaTarjetaForm.style.display = 'none';
+            }
+        });
+    });
+    
+    // Formatear número de tarjeta
+    const numeroTarjeta = document.getElementById('numero_tarjeta');
+    if (numeroTarjeta) {
+        numeroTarjeta.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    }
+    
+    // Formatear fecha de vencimiento
+    const fechaVencimiento = document.getElementById('fecha_vencimiento');
+    if (fechaVencimiento) {
+        fechaVencimiento.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            this.value = value;
+        });
+    }
+});
+</script>
+{% endblock %}
