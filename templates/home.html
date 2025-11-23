@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load currency_filters %}
+{% load i18n %}
+{% block title %}{% trans "Inicio" %}{% endblock %}
+{% block content %}
+<style>
+	.ranking-card:hover {
+		transform: scale(1.05);
+		box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+	}
+</style>
+{% if messages %}
+	<div class="container mt-3">
+		{% for message in messages %}
+			<div class="alert alert-success">{{ message }}</div>
+		{% endfor %}
+	</div>
+{% endif %}
+<!-- Barra de búsqueda y filtros arriba y en horizontal -->
+<div class="container-fluid pt-4 pb-2">
+	<div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mb-4">
+		<div class="flex-grow-1">
+			<form class="d-flex flex-row align-items-center gap-2" method="get" action="/">
+				<input class="form-control" type="search" name="q" placeholder="{% trans 'Buscar ropa por nombre' %}" aria-label="{% trans 'Buscar' %}" value="{{ q }}">
+				<select class="form-select" name="tipo">
+					<option value="">{% trans "Tipo" %}</option>
+					<option value="camiseta">{% trans "Camiseta" %}</option>
+					<option value="buzo">{% trans "Buzo" %}</option>
+					<option value="pantalon">{% trans "Pantalón" %}</option>
+				</select>
+				<select class="form-select" name="genero">
+					<option value="">{% trans "Género" %}</option>
+					<option value="hombre">{% trans "Hombre" %}</option>
+					<option value="mujer">{% trans "Mujer" %}</option>
+				</select>
+				   <button class="btn btn-primary" type="submit">{% trans "Buscar" %}</button>
+			</form>
+		</div>
+		<div class="text-end">
+			{% if not user.is_authenticated %}
+				<a href="{% url 'users:login' %}" class="btn btn-primary me-2">{% trans "Iniciar sesión" %}</a>
+				<a href="{% url 'users:register' %}" class="btn btn-info">{% trans "Registrarse" %}</a>
+			{% else %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="d-flex mb-4">
+		   {% if user.is_staff or user.is_superuser %}
+			   <a href="{% url 'catalog:nueva_publicacion' %}" class="btn btn-primary fw-bold me-auto">
+				   <i class="bi bi-plus-lg"></i> {% trans "Nueva publicación" %}
+			   </a>
+		   {% endif %}
+	</div>
+	<!-- Ranking de productos más vendidos -->
+</div>
+<div class="container mt-4">
+	<h2 class="mb-4 text-center" style="color: #111;">{% trans "Productos más vendidos" %}</h2>
+	<div class="row justify-content-center">
+		{% for producto in ranking %}
+		<div class="col-md-4 mb-3">
+			<a href="{% url 'catalog:detalle_producto' producto.id %}" class="text-decoration-none">
+				<div class="card border-success shadow-sm h-100 ranking-card" style="cursor: pointer; transition: transform 0.2s;">
+					{% if producto.imagen %}
+					<img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+					{% else %}
+					<img src="/static/img/no-image.png" class="card-img-top" alt="Sin imagen" style="height: 200px; object-fit: cover;">
+					{% endif %}
+					<div class="card-body">
+						<h5 class="card-title text-dark fw-bold">{{ producto.nombre }}</h5>
+						<p class="card-text text-muted">{{ producto.descripcion|truncatewords:15 }}</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<span class="badge bg-success">{% trans "Más vendido" %}</span>
+							<span class="fw-bold text-success">{% display_price producto.precio current_currency %}</span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% empty %}
+		<div class="col-12 text-center">
+			<p>{% trans "No hay ranking disponible." %}</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<!-- Catálogo de productos -->
+<div class="container mt-5">
+	<h2 class="mb-4 text-center" style="color: #111;">{% trans "Catálogo de productos" %}</h2>
+	<div class="row justify-content-center">
+		{% for producto in productos %}
+		<div class="col-md-4 mb-4">
+			<div class="card h-100 shadow-sm">
+				{% if producto.imagen %}
+				<img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 250px; object-fit: cover;">
+				{% else %}
+				<img src="/static/img/no-image.png" class="card-img-top" alt="Sin imagen" style="height: 250px; object-fit: cover;">
+				{% endif %}
+				<div class="card-body text-center">
+					   <h5 class="card-title" style="color: #111;">
+						   {% if user.is_staff or user.is_superuser %}
+						   <!-- Botón de edición para administradores -->
+						   <a href="{% url 'catalog:editar_producto' producto.pk %}" class="btn btn-info w-100 fw-bold">
+							   <i class="fas fa-edit"></i> Editar: {{ producto.nombre }}
+						   </a>
+						   {% else %}
+					   <!-- Link normal para usuarios -->
+					   <a href="{% url 'catalog:detalle_producto' producto.id %}" class="btn btn-primary w-100 fw-bold">{{ producto.nombre }}</a>
+					   {% endif %}
+					   </h5>
+					   <p class="card-text fw-bold text-success">{% display_price producto.precio current_currency %}</p>
+					   {% if user.is_staff or user.is_superuser %}
+					   <small class="text-muted">Stock: {{ producto.stock }} | Talla: {{ producto.talla }} | Color: {{ producto.color }}</small>
+					   {% endif %}
+				</div>
+			</div>
+		</div>
+		{% empty %}
+		<div class="col-12 text-center">
+			<p>{% trans "No hay productos disponibles." %}</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+</div>
+{% endblock %}

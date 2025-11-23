@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Recomendaciones{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center" style="color: #111;">Tus recomendaciones</h2>
+    <div class="row justify-content-center">
+        {% for producto in recomendados %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-info shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #111;">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <span class="badge bg-info text-dark">Recomendado</span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No hay recomendaciones disponibles.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
