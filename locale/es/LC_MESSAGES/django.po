@@ -1,2 +1,247 @@
-# NO NECESITA TRADUCCION AL ESPANOL
-# (LANGUAGE_CODE = "es")
+# Archivo de traducciones español restaurado. Encabezado UTF-8 y corrección de caracteres.
+# Como el idioma base del proyecto es español, los msgstr se dejan iguales.
+msgid ""
+msgstr ""
+"Project-Id-Version: ProyectoASoftware 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-24 00:20+0000\n"
+"PO-Revision-Date: 2025-11-24 00:35+0000\n"
+"Last-Translator: Auto Restore <noreply@example.com>\n"
+"Language-Team: Spanish <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: cart/models.py:21 users/models.py:26
+msgid "Usuario"
+msgstr "Usuario"
+
+#: cart/models.py:23
+msgid "Total"
+msgstr "Total"
+
+#: cart/models.py:27
+msgid "Carrito de compra"
+msgstr "Carrito de compra"
+
+#: cart/models.py:28
+msgid "Carritos de compra"
+msgstr "Carritos de compra"
+
+#: cart/models.py:81
+msgid "Carrito"
+msgstr "Carrito"
+
+#: cart/models.py:87 catalog/models.py:29
+msgid "Producto"
+msgstr "Producto"
+
+#: cart/models.py:89 templates/catalog/productos_aliados.html:30
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#: cart/models.py:92
+msgid "Ítem del carrito"
+msgstr "Ítem del carrito"
+
+#: cart/models.py:93
+msgid "Ítems del carrito"
+msgstr "Ítems del carrito"
+
+#: catalog/models.py:17 templates/catalog/productos_aliados.html:27 users/models.py:17
+msgid "Nombre"
+msgstr "Nombre"
+
+#: catalog/models.py:18
+msgid "Descripción"
+msgstr "Descripción"
+
+#: catalog/models.py:19 templates/catalog/productos_aliados.html:32
+msgid "Precio"
+msgstr "Precio"
+
+#: catalog/models.py:20
+msgid "Stock"
+msgstr "Stock"
+
+#: catalog/models.py:21
+msgid "Talla"
+msgstr "Talla"
+
+#: catalog/models.py:22
+msgid "Color"
+msgstr "Color"
+
+#: catalog/models.py:23
+msgid "Tipo de prenda"
+msgstr "Tipo de prenda"
+
+#: catalog/models.py:24 templates/home.html:32
+msgid "Género"
+msgstr "Género"
+
+#: catalog/models.py:25
+msgid "Imagen del producto"
+msgstr "Imagen del producto"
+
+#: catalog/models.py:30
+msgid "Productos"
+msgstr "Productos"
+
+#: templates/base.html:7
+msgid "Panel"
+msgstr "Panel"
+
+#: templates/base.html:51
+msgid "Seleccionar Idioma"
+msgstr "Seleccionar Idioma"
+
+#: templates/base.html:75
+msgid "Seleccionar Moneda"
+msgstr "Seleccionar Moneda"
+
+#: templates/base.html:88
+msgid "Catálogo"
+msgstr "Catálogo"
+
+#: templates/base.html:109
+msgid "Recomendaciones"
+msgstr "Recomendaciones"
+
+#: templates/base.html:110
+msgid "Mi carrito"
+msgstr "Mi carrito"
+
+#: templates/catalog/productos_aliados.html:3
+msgid "Productos aliados"
+msgstr "Productos aliados"
+
+#: templates/catalog/productos_aliados.html:7
+msgid "Productos del aliado"
+msgstr "Productos del aliado"
+
+#: templates/catalog/productos_aliados.html:17
+msgid "Consumiendo datos desde"
+msgstr "Consumiendo datos desde"
+
+#: templates/catalog/productos_aliados.html:28 templates/home.html:26
+msgid "Tipo"
+msgstr "Tipo"
+
+#: templates/catalog/productos_aliados.html:29
+msgid "Marca"
+msgstr "Marca"
+
+#: templates/catalog/productos_aliados.html:31
+msgid "Vencimiento"
+msgstr "Vencimiento"
+
+#: templates/catalog/productos_aliados.html:33
+msgid "Imagen"
+msgstr "Imagen"
+
+#: templates/catalog/productos_aliados.html:50
+msgid "Sin imagen"
+msgstr "Sin imagen"
+
+#: templates/catalog/productos_aliados.html:60
+msgid "No se recibieron productos desde el servicio aliado."
+msgstr "No se recibieron productos desde el servicio aliado."
+
+#: templates/home.html:4
+msgid "Inicio"
+msgstr "Inicio"
+
+#: templates/home.html:24
+msgid "Buscar ropa por nombre"
+msgstr "Buscar ropa por nombre"
+
+#: templates/home.html:24 templates/home.html:36
+msgid "Buscar"
+msgstr "Buscar"
+
+#: templates/home.html:27
+msgid "Camiseta"
+msgstr "Camiseta"
+
+#: templates/home.html:28
+msgid "Buzo"
+msgstr "Buzo"
+
+#: templates/home.html:29
+msgid "Pantalón"
+msgstr "Pantalón"
+
+#: templates/home.html:33
+msgid "Hombre"
+msgstr "Hombre"
+
+#: templates/home.html:34
+msgid "Mujer"
+msgstr "Mujer"
+
+#: templates/home.html:41
+msgid "Iniciar sesión"
+msgstr "Iniciar sesión"
+
+#: templates/home.html:42
+msgid "Registrarse"
+msgstr "Registrarse"
+
+#: templates/home.html:50
+msgid "Nueva publicación"
+msgstr "Nueva publicación"
+
+#: templates/home.html:57
+msgid "Productos más vendidos"
+msgstr "Productos más vendidos"
+
+#: templates/home.html:72
+msgid "Más vendido"
+msgstr "Más vendido"
+
+#: templates/home.html:81
+msgid "No hay ranking disponible."
+msgstr "No hay ranking disponible."
+
+#: templates/home.html:88
+msgid "Catálogo de productos"
+msgstr "Catálogo de productos"
+
+#: templates/home.html:119
+msgid "No hay productos disponibles."
+msgstr "No hay productos disponibles."
+
+#: users/models.py:18
+msgid "Correo electrónico"
+msgstr "Correo electrónico"
+
+#: users/models.py:19
+msgid "Contraseña"
+msgstr "Contraseña"
+
+#: users/models.py:20
+msgid "Dirección"
+msgstr "Dirección"
+
+#: users/models.py:21
+msgid "Teléfono"
+msgstr "Teléfono"
+
+#: users/models.py:22
+msgid "Rol administrador"
+msgstr "Rol administrador"
+
+#: users/models.py:27
+msgid "Usuarios"
+msgstr "Usuarios"
+
+#: users/models.py:46
+msgid "Tarjeta"
+msgstr "Tarjeta"
+
+#: users/models.py:47
+msgid "Tarjetas"
+msgstr "Tarjetas"

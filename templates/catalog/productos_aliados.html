@@ -23,17 +23,33 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>{% trans "Nombre" %}</th>
+                        <th>{% trans "Tipo" %}</th>
+                        <th>{% trans "Marca" %}</th>
+                        <th>{% trans "Cantidad" %}</th>
+                        <th>{% trans "Vencimiento" %}</th>
                         <th>{% trans "Precio" %}</th>
-                        <th>{% trans "Descripción" %}</th>
+                        <th>{% trans "Imagen" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for p in productos_aliados %}
                         <tr>
-                            <td>{{ p.nombre|default:p.name }}</td>
-                            <td>{{ p.precio|default:p.price }}</td>
-                            <td>{{ p.descripcion|default:p.description }}</td>
+                            <td>{{ p.idProducto }}</td>
+                            <td>{{ p.nombreProducto }}</td>
+                            <td>{{ p.tipoProducto }}</td>
+                            <td>{{ p.marcaProducto }}</td>
+                            <td>{{ p.cantidadDeProducto }}</td>
+                            <td>{{ p.fechaVencimientoProducto }}</td>
+                            <td>{{ p.precioDeProducto }}</td>
+                            <td>
+                                {% if p.imagenProducto %}
+                                    <img src="{{ p.imagenProducto }}" alt="{{ p.nombreProducto }}" style="height:60px;object-fit:cover;" />
+                                {% else %}
+                                    <span class="text-muted">{% trans "Sin imagen" %}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -37,13 +37,27 @@ class ProductosAliadosView(TemplateView):
             response.raise_for_status()
             data = response.json()
 
-            # Permitimos que el aliado envíe directamente una lista o un dict con clave "productos"
+            # Formatos permitidos: lista directa o dict con clave productos/results
             if isinstance(data, dict):
-                productos = data.get("productos", data.get("results", []))
+                productos_crudos = data.get("productos", data.get("results", []))
             else:
-                productos = data
+                productos_crudos = data
 
-            context["productos_aliados"] = productos
+            productos_normalizados = []
+            for item in productos_crudos:
+                # Usar exactamente los campos del aliado; si alguno falta, poner None
+                productos_normalizados.append({
+                    'idProducto': item.get('idProducto'),
+                    'nombreProducto': item.get('nombreProducto'),
+                    'tipoProducto': item.get('tipoProducto'),
+                    'marcaProducto': item.get('marcaProducto'),
+                    'cantidadDeProducto': item.get('cantidadDeProducto'),
+                    'fechaVencimientoProducto': item.get('fechaVencimientoProducto'),
+                    'precioDeProducto': item.get('precioDeProducto'),
+                    'imagenProducto': item.get('imagenProducto'),
+                })
+
+            context["productos_aliados"] = productos_normalizados
         except Exception as exc:  # noqa: BLE001
             context["error_aliados"] = f"Error al consumir el servicio aliado: {exc}"
             context["productos_aliados"] = []

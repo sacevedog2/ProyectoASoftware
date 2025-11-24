@@ -86,6 +86,7 @@
                     </div>
                     
                     <a href="/" class="btn btn-outline-info">{% trans "Catálogo" %}</a>
+                    <a href="{% url 'catalog:productos_aliados' %}" class="btn btn-outline-info">Productos Aliados</a>
                     {% if user.is_authenticated %}
                         {% if user.is_staff or user.is_superuser %}
                         <!-- Menú para Administradores -->
