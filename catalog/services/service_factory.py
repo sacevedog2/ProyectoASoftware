@@ -1,24 +1,36 @@
 """
-Factory para crear instancias de servicios (patrón Factory)
+Factory para crear instancias de servicios (patrón Factory) junto con
+el uso de interfaces para demostrar Inversión de Dependencias.
 """
-from catalog.services.currency_service import CurrencyService
-from catalog.services.recommendations import productos_recomendados
-from catalog.services.ranking import productos_mas_vendidos
+from .implementations import (
+    DjangoORMProductRepository,
+    APICurrencyService,
+    RecommendationService,
+)
+from .interfaces import IProductRepository, ICurrencyService, IRecommendationService
+
 
 class ServiceFactory:
-    """Factory para crear instancias de servicios."""
-    
+    """
+    Factory para crear instancias de servicios.
+
+    Las vistas pueden solicitar los servicios a esta clase sin conocer
+    la implementación concreta. Si mañana cambiamos de ORM o de API de monedas,
+    sólo modificamos esta factory y/o las implementaciones, manteniendo
+    el resto del código intacto.
+    """
+
     @staticmethod
-    def get_currency_service():
-        """Retorna una instancia del servicio de monedas."""
-        return CurrencyService
-    
+    def get_product_repository() -> IProductRepository:
+        """Retorna un repositorio de productos."""
+        return DjangoORMProductRepository()
+
     @staticmethod
-    def get_recommendation_service():
+    def get_currency_service() -> ICurrencyService:
+        """Retorna el servicio de monedas."""
+        return APICurrencyService()
+
+    @staticmethod
+    def get_recommendation_service() -> IRecommendationService:
         """Retorna el servicio de recomendaciones."""
-        return productos_recomendados
-    
-    @staticmethod
-    def get_ranking_service():
-        """Retorna el servicio de ranking."""
-        return productos_mas_vendidos
+        return RecommendationService()

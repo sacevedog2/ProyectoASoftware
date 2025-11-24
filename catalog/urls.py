@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import AdminProductosView, NuevaPublicacionView, ProductoDetailView, ProductoEditView
+from .views_aliados import ProductosAliadosView
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.generic import RedirectView
 
@@ -12,4 +13,6 @@ urlpatterns = [
     path('nueva_publicacion/', NuevaPublicacionView.as_view(), name='nueva_publicacion'),
     path('producto/<int:pk>/', ProductoDetailView.as_view(), name='detalle_producto'),
     path('producto/<int:pk>/editar/', staff_member_required(ProductoEditView.as_view()), name='editar_producto'),
+    # Consumo del servicio del equipo aliado
+    path('productos-aliados/', ProductosAliadosView.as_view(), name='productos_aliados'),
 ]

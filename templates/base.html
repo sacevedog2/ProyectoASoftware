@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load i18n %}
 {% load static %}
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{% if request.LANGUAGE_CODE %}{{ request.LANGUAGE_CODE|slice:":2" }}{% else %}es{% endif %}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% trans "Panel" %}{% endblock %}</title>
@@ -43,7 +43,9 @@
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-globe"></i> 
-                            {% if LANGUAGE_CODE == 'es' %}🇪🇸 ES{% else %}🇺🇸 EN{% endif %}
+                            {% with lang=request.LANGUAGE_CODE|default:"es" %}
+                                {% if lang|slice:":2" == 'es' %}🇪🇸 ES{% else %}🇺🇸 EN{% endif %}
+                            {% endwith %}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
                             <li><h6 class="dropdown-header">{% trans "Seleccionar Idioma" %}</h6></li>
@@ -51,12 +53,12 @@
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="{{ request.get_full_path }}">
                                 <li>
-                                    <button type="submit" name="language" value="es" class="dropdown-item {% if LANGUAGE_CODE == 'es' %}active{% endif %}">
+                                    <button type="submit" name="language" value="es" class="dropdown-item {% with lang=request.LANGUAGE_CODE|default:"es" %}{% if lang|slice:":2" == 'es' %}active{% endif %}{% endwith %}">
                                         🇪🇸 Español
                                     </button>
                                 </li>
                                 <li>
-                                    <button type="submit" name="language" value="en" class="dropdown-item {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
+                                        <button type="submit" name="language" value="en" class="dropdown-item {% with lang=request.LANGUAGE_CODE|default:"es" %}{% if lang|slice:":2" == 'en' %}active{% endif %}{% endwith %}">
                                         🇺🇸 English
                                     </button>
                                 </li>
@@ -84,6 +86,7 @@
                     </div>
                     
                     <a href="/" class="btn btn-outline-info">{% trans "Catálogo" %}</a>
+                    <a href="{% url 'catalog:productos_aliados' %}" class="btn btn-outline-info">Productos Aliados</a>
                     {% if user.is_authenticated %}
                         {% if user.is_staff or user.is_superuser %}
                         <!-- Menú para Administradores -->
